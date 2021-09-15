@@ -1,0 +1,13 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: {{ include "kube2ram.fullname" . }}
+  labels:
+    {{- include "kube2ram.labels" . | nindent 4 }}
+spec:
+  selector:
+    matchLabels:
+      {{- include "kube2ram.selectorLabels" . | nindent 6 }}
+  endpoints:
+    - port: http
+      path: /metrics
